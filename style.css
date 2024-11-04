@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0; /* Light gray background */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffd700; /* Gold color for text */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px; /* Adjust the size as needed */
+    margin-right: 10px; /* Space between logo and text */
+}
+
+.logo .company-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700; /* Gold color */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+}
+
+nav ul li a:hover {
+    color: #ffd700; /* Gold color on hover */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.search-bar input {
+    border: none;
+    padding: 5px;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.search-bar button:hover {
+    color: #ffd700; /* Gold color on hover */
+}
