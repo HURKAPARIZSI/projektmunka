@@ -38,12 +38,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `description`) VALUES
-(1, 'Electronics', 'Devices and gadgets'),
-(2, 'Books', 'Printed and digital books'),
-(3, 'Clothing', 'Apparel and accessories'),
-(4, 'Casino Supplies', 'Items used in casino settings'),
-(5, 'Playing Cards', 'Decks of cards for various games'),
-(6, 'Dice Games', 'Various types of dice and accessories');
+(1, 'Casino Supplies', 'Items used in casino settings'),
+(2, 'Playing Cards', 'Decks of cards for various games'),
+(3, 'Dice Games', 'Various types of dice and accessories');
 
 -- --------------------------------------------------------
 
@@ -102,16 +99,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `price`, `stock_quantity`, `category_id`, `created_at`) VALUES
-(1, 'Smartphone', 'Latest model smartphone', '699.99', 50, 1, '2024-11-11 10:27:11'),
-(2, 'Laptop', 'High performance laptop', '1299.99', 30, 1, '2024-11-11 10:27:11'),
-(3, 'Novel', 'Bestselling novel', '15.99', 100, 2, '2024-11-11 10:27:11'),
-(4, 'T-Shirt', 'Cotton t-shirt', '9.99', 200, 3, '2024-11-11 10:27:11'),
-(5, 'Poker Chip Set', '300-piece poker chip set with case', '49.99', 20, 1, '2024-11-11 10:27:39'),
-(6, 'Blackjack Table Felt', 'Professional blackjack table layout felt', '99.99', 10, 1, '2024-11-11 10:27:39'),
-(7, 'Standard Playing Cards', '52-card deck for various card games', '3.99', 200, 2, '2024-11-11 10:27:39'),
-(8, 'Plastic-Coated Poker Cards', 'Durable poker cards for professional use', '7.99', 150, 2, '2024-11-11 10:27:39'),
-(9, 'Casino Dice Set', 'Set of 5 high-quality casino dice', '4.99', 100, 3, '2024-11-11 10:27:39'),
-(10, 'Craps Table Dice', 'Professional dice for craps games', '24.99', 30, 3, '2024-11-11 10:27:39');
+
+(1, 'Blackjack Table Felt', 'Professional blackjack table layout felt', '99.99', 10, 1, '2024-11-11 10:27:39'),
+(2, 'Standard Playing Cards', '52-card deck for various card games', '3.99', 200, 2, '2024-11-11 10:27:39'),
+(3, 'Plastic-Coated Poker Cards', 'Durable poker cards for professional use', '7.99', 150, 2, '2024-11-11 10:27:39'),
+(4, 'Casino Dice Set', 'Set of 5 high-quality casino dice', '4.99', 100, 3, '2024-11-11 10:27:39'),
+(5, 'Craps Table Dice', 'Professional dice for craps games', '24.99', 30, 3, '2024-11-11 10:27:39');
 
 -- --------------------------------------------------------
 
@@ -134,7 +127,7 @@ CREATE TABLE `reviews` (
 
 INSERT INTO `reviews` (`review_id`, `product_id`, `user_id`, `rating`, `comment`, `created_at`) VALUES
 (1, 1, 1, 5, 'Excellent product!', '2024-11-11 10:27:11'),
-(2, 2, 2, 4, 'Very good laptop for the price.', '2024-11-11 10:27:11'),
+(2, 2, 2, 4, 'Very good table for the price.', '2024-11-11 10:27:11'),
 (3, 3, 1, 3, 'It was an okay read.', '2024-11-11 10:27:11');
 
 -- --------------------------------------------------------
