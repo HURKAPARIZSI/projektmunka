@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kezdőlap</title>
+    <title>Kapcsolatok</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,20 +16,20 @@
         </nav>
     </header>
     <main>
-        <h1>Üdvözlünk az oldalunkon</h1>
-        <section class="products">
-            <div class="product">
-                <img src="img/product1.jpg" alt="Termék 1">
-                <p>Leírás</p>
-                <button>Kosárba</button>
-            </div>
-            <div class="product">
-                <img src="img/product2.jpg" alt="Termék 2">
-                <p>Leírás</p>
-                <button>Kosárba</button>
-            </div>
-            <!-- További termékek -->
-        </section>
+        <h1>Kapcsolatok</h1>
+        <form>
+            <label for="name">Név:</label>
+            <input type="text" id="name" name="name">
+            
+            <label for="message">Üzenet:</label>
+            <textarea id="message" name="message"></textarea>
+            
+            <button type="submit">Küldés</button>
+        </form>
+        <address>
+            <p>Email: info@webshop.hu</p>
+            <p>Telefon: +36 30 123 4567</p>
+        </address>
     </main>
     <footer>
         <p>&copy; 2024 Webshop</p>
