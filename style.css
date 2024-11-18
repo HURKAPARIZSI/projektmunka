@@ -1,4 +1,4 @@
-/* Alap stílusok */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,7 +7,7 @@ body {
     color: #333;
 }
 
-/* Fejléc és navigáció */
+
 header {
     background-color: #000;
     color: #fff;
@@ -33,33 +33,7 @@ nav a:hover {
     color: #000;
 }
 
-/* Oldal fő tartalom */
-main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
 
-/* Gombok */
-button {
-    background-color: #ffc107;
-    color: #000;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #e0a800;
-}
-
-/* Termékek szekció */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -80,57 +54,81 @@ button:hover {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.product img:hover {
+    transform: scale(1.1);
 }
 
 .product button {
     margin-top: 10px;
-}
-
-/* Űrlapok */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-form label {
-    font-weight: bold;
-}
-
-form input, form textarea, form button {
-    padding: 10px;
-    border: 1px solid #ddd;
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
     border-radius: 4px;
-    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-form textarea {
-    resize: vertical;
+.product button:hover {
+    background-color: #e0a800;
 }
 
-/* Kosár táblázat */
-table {
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
 }
 
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+
+.modal-content {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    max-width: 80%;
+    background-color: #fff;
+    border-radius: 8px;
 }
 
-table th {
-    background-color: #f8f9fa;
+.modal-content img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-/* Lábjegyzet */
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    margin-top: 20px;
+.modal-content img:hover {
+    transform: scale(1.1);
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #ffc107;
 }
