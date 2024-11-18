@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webshop Galéria</title>
+    <title>Kezdőlap</title>
     <link rel="stylesheet" href="style.css"> <!-- Külső CSS fájl -->
 </head>
 <body>
     <header>
-        <h1>Webshop</h1>
+        <h1>Webshop.kft</h1>
         <nav>
             <a href="index.html">Kezdőlap</a>
             <a href="login.html">Bejelentkezés</a>
@@ -19,18 +19,18 @@
     <main>
         <section class="products">
             <div class="product">
-                <img src="img/kep_blackjack.jpg" alt="Termék 1" onclick="openModal('blackjack')">
+                <img src="img/kep_blackjack.jpg" alt="blackjack" onclick="openModal('blackjack')">
                 <p>Blackjack asztal</p>
                 <button>Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_roulett.jpg" alt="Termék 2" onclick="openModal('roulett')">
+                <img src="img/kep_roulett.jpg" alt="roulett" onclick="openModal('roulett')">
                 <p>Roulett asztal</p>
                 <button>Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_felkaru.jpg" alt="Termék 3" onclick="openModal('felkaru')">
-                <p>Félkaru játékgép</p>
+                <img src="img/kep_slot.jpg" alt="slot" onclick="openModal('slot')">
+                <p>Slot</p>
                 <button>Kosárba</button>
             </div>
         </section>
@@ -55,11 +55,11 @@
         </div>
 
         <div id="felkaru" class="modal">
-            <span class="close" onclick="closeModal('felkaru')">&times;</span>
+            <span class="close" onclick="closeModal('slot')">&times;</span>
             <div class="modal-content">
-                <img src="img/kep_felkaru2.jpg" alt="Termék 3 kép 1">
-                <img src="img/kep_felkaru3.jpg" alt="Termék 3 kép 2">
-                <img src="img/kep_felkaru4.jpg" alt="Termék 3 kép 3">
+                <img src="img/kep_slot2.jpg" alt="Termék 3 kép 1">
+                <img src="img/kep_slot3.jpg" alt="Termék 3 kép 2">
+                <img src="img/kep_slot4.jpg" alt="Termék 3 kép 3">
             </div>
         </div>
     </main>
