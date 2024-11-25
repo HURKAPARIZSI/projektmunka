@@ -7,8 +7,6 @@ $password = "";     // Az adatbázis jelszó
 
 try {
     $pdo = new PDO($dsn, $username, $password);
-    $stmt = $pdo->("SELECT * FROM orders");
-    var_dump($stmt);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Adatbázis hiba: " . $e->getMessage());
