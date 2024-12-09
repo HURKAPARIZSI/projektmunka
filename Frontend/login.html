@@ -18,17 +18,19 @@
     </header>
     <main>
         <h1>Bejelentkezés</h1>
-        <form action="/projektmunka/Backend/api/login.php" method="get">
+        <form action="Backend/api/login.php" method="POST">
+            <input type="hidden" name="action" value="login">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="username">
+            <input type="email" id="email" name="email" required>
             
             <label for="password">Jelszó:</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" required>
             
-            <button type="submit">Login</button>
-            <p><a href="register.html">Fiók létrehozása</a></p>
+            <button type="submit">Bejelentkezés</button>
+
+          
+            <p><a href="register.html">Bejelentkezés</a></p>
         </form>
     </main>
-
 </body>
 </html>

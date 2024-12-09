@@ -17,21 +17,22 @@
         </nav>
     </header>
     <main>
-        <h1>Bejelentkezés</h1>
-        <form action="/projektmunka/Backend/api/login.php" method="get">
+        <h1>Regisztráció</h1>
+        <form action="Backend/api/login.php" method="POST">
+            <input type="hidden" name="action" value="register">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="username">
+            <input type="email" id="email" name="email" required>
             
             <label for="password">Jelszó:</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" required>
 
-            <label for="password">Jelszó újra:</label>
-            <input type="password" id="password2" name="password">
+            <label for="password2">Jelszó újra:</label>
+            <input type="password" id="password2" name="password2" required>
             
-            <button type="submit">Register</button>
-            <p><a href="login.html">Bejelentkezés</a></p>
+            <button type="submit">Regisztráció</button>
+
+            <p>Van már fiókod? <a href="login.html">Bejelentkezés</a></p>
         </form>
     </main>
-
 </body>
 </html>
