@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Nov 11. 10:42
+-- Létrehozás ideje: 2024. Dec 16. 11:39
 -- Kiszolgáló verziója: 10.4.27-MariaDB
 -- PHP verzió: 8.0.25
 
@@ -20,6 +20,48 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `eretsegiprojekt`
 --
+
+DELIMITER $$
+--
+-- Eljárások
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_user` (IN `p_username` VARCHAR(50), IN `p_email` VARCHAR(100), IN `p_password` VARCHAR(255), IN `p_is_admin` TINYINT)   BEGIN
+    -- Ellenőrizzük, hogy az email már létezik-e
+    IF EXISTS (
+        SELECT 1 FROM `users` WHERE `email` = p_email
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Email already exists!';
+    ELSE
+        -- Új felhasználó hozzáadása
+        INSERT INTO `users` (`username`, `email`, `password`, `created_at`, `is_admin`)
+        VALUES (p_username, p_email, p_password, NOW(), p_is_admin);
+    END IF;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `cart`
+--
+
+CREATE TABLE `cart` (
+  `cart_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `added_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `product_id`, `quantity`, `added_at`) VALUES
+(1, 1, 2, 5, '2024-11-25 11:25:24'),
+(2, 2, 4, 2, '2024-11-25 11:25:24');
 
 -- --------------------------------------------------------
 
@@ -38,9 +80,12 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `description`) VALUES
-(1, 'Casino Supplies', 'Items used in casino settings'),
-(2, 'Playing Cards', 'Decks of cards for various games'),
-(3, 'Dice Games', 'Various types of dice and accessories');
+(1, 'Electronics', 'Devices and gadgets'),
+(2, 'Books', 'Printed and digital books'),
+(3, 'Clothing', 'Apparel and accessories'),
+(4, 'Casino Supplies', 'Items used in casino settings'),
+(5, 'Playing Cards', 'Decks of cards for various games'),
+(6, 'Dice Games', 'Various types of dice and accessories');
 
 -- --------------------------------------------------------
 
@@ -99,36 +144,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `price`, `stock_quantity`, `category_id`, `created_at`) VALUES
-
-(1, 'Blackjack Table Felt', 'Professional blackjack table layout felt', '99.99', 10, 1, '2024-11-11 10:27:39'),
-(2, 'Standard Playing Cards', '52-card deck for various card games', '3.99', 200, 2, '2024-11-11 10:27:39'),
-(3, 'Plastic-Coated Poker Cards', 'Durable poker cards for professional use', '7.99', 150, 2, '2024-11-11 10:27:39'),
-(4, 'Casino Dice Set', 'Set of 5 high-quality casino dice', '4.99', 100, 3, '2024-11-11 10:27:39'),
-(5, 'Craps Table Dice', 'Professional dice for craps games', '24.99', 30, 3, '2024-11-11 10:27:39');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `reviews`
---
-
-CREATE TABLE `reviews` (
-  `review_id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `rating` int(11) DEFAULT NULL CHECK (`rating` between 1 and 5),
-  `comment` text DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- A tábla adatainak kiíratása `reviews`
---
-
-INSERT INTO `reviews` (`review_id`, `product_id`, `user_id`, `rating`, `comment`, `created_at`) VALUES
-(1, 1, 1, 5, 'Excellent product!', '2024-11-11 10:27:11'),
-(2, 2, 2, 4, 'Very good table for the price.', '2024-11-11 10:27:11'),
-(3, 3, 1, 3, 'It was an okay read.', '2024-11-11 10:27:11');
+(1, 'Smartphone', 'Latest model smartphone', '699.99', 50, 1, '2024-11-11 10:27:11'),
+(2, 'Laptop', 'High performance laptop', '1299.99', 30, 1, '2024-11-11 10:27:11'),
+(3, 'Novel', 'Bestselling novel', '15.99', 100, 2, '2024-11-11 10:27:11'),
+(4, 'T-Shirt', 'Cotton t-shirt', '9.99', 200, 3, '2024-11-11 10:27:11'),
+(5, 'Poker Chip Set', '300-piece poker chip set with case', '49.99', 20, 1, '2024-11-11 10:27:39'),
+(6, 'Blackjack Table Felt', 'Professional blackjack table layout felt', '99.99', 10, 1, '2024-11-11 10:27:39'),
+(7, 'Standard Playing Cards', '52-card deck for various card games', '3.99', 200, 2, '2024-11-11 10:27:39'),
+(8, 'Plastic-Coated Poker Cards', 'Durable poker cards for professional use', '7.99', 150, 2, '2024-11-11 10:27:39'),
+(9, 'Casino Dice Set', 'Set of 5 high-quality casino dice', '4.99', 100, 3, '2024-11-11 10:27:39'),
+(10, 'Craps Table Dice', 'Professional dice for craps games', '24.99', 30, 3, '2024-11-11 10:27:39');
 
 -- --------------------------------------------------------
 
@@ -159,6 +184,14 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `
 --
 
 --
+-- A tábla indexei `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- A tábla indexei `categories`
 --
 ALTER TABLE `categories`
@@ -187,14 +220,6 @@ ALTER TABLE `products`
   ADD KEY `category_id` (`category_id`);
 
 --
--- A tábla indexei `reviews`
---
-ALTER TABLE `reviews`
-  ADD PRIMARY KEY (`review_id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
@@ -203,6 +228,12 @@ ALTER TABLE `users`
 --
 -- A kiírt táblák AUTO_INCREMENT értéke
 --
+
+--
+-- AUTO_INCREMENT a táblához `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `categories`
@@ -229,12 +260,6 @@ ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT a táblához `reviews`
---
-ALTER TABLE `reviews`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
@@ -243,6 +268,13 @@ ALTER TABLE `users`
 --
 -- Megkötések a kiírt táblákhoz
 --
+
+--
+-- Megkötések a táblához `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
 
 --
 -- Megkötések a táblához `orders`
@@ -262,13 +294,6 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`);
-
---
--- Megkötések a táblához `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
