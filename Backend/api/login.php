@@ -1,78 +1,44 @@
 <?php
-// Ellenőrizzük, hogy a kérés POST módszerrel érkezett
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $action = $_POST['action'];
+// Beállítjuk a kapcsolatot az adatbázissal
+$servername = "localhost";
+  $username = "felhasznalo";
+  $password = "jelszo"; 
+  $dbname = "projektdb";
 
-    // Adatbázis kapcsolódási adatok
-    $servername = "localhost";
-    $username = "root";
-    $dbpassword = "";
-    $dbname = "webshop";
+  $conn = new mysqli($servername, $username, $password, $dbname); // kapcsolat létrehozása
 
-    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+// Ha a formot POST metódussal küldték el
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    if ($conn->connect_error) {
-        die("Kapcsolódási hiba: " . $conn->connect_error);
-    }
+    // Az SQL lekérdezés előkészítése
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email); // 's' jelzi, hogy a paraméter típus string
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($action === "register") {
-        // Regisztrációs logika
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        $password2 = htmlspecialchars($_POST['password2']);
+    // Ha találunk felhasználót az adott email címhez
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
 
-        if ($password !== $password2) {
-            die("A jelszavak nem egyeznek.");
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            die("Érvénytelen email cím.");
-        }
-
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $email, $hashedPassword);
-
-        if ($stmt->execute()) {
-            echo "Sikeres regisztráció!";
+        // Ellenőrizzük a jelszót (feltételezzük, hogy a jelszó hash-el van tárolva az adatbázisban)
+        if (password_verify($password, $user['password'])) {
+            // Sikeres bejelentkezés
+            echo "Sikeres bejelentkezés, üdvözlünk, " . htmlspecialchars($user['username']) . "!";
+            // Itt beállíthatnál session-t is, hogy a felhasználó be legyen jelentkezve
         } else {
-            echo "Hiba történt: " . $stmt->error;
+            // Hibás jelszó
+            echo "Hibás jelszó!";
         }
-
-        $stmt->close();
-    } elseif ($action === "login") {
-        // Bejelentkezési logika
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-
-        $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($hashedPassword);
-            $stmt->fetch();
-
-            if (password_verify($password, $hashedPassword)) {
-                session_start();
-                $_SESSION['email'] = $email;
-                echo "Sikeres bejelentkezés!";
-            } else {
-                echo "Hibás jelszó.";
-            }
-        } else {
-            echo "A megadott email-cím nem található.";
-        }
-
-        $stmt->close();
     } else {
-        echo "Érvénytelen művelet.";
+        // Nincs olyan felhasználó, aki a megadott email címmel regisztrált
+        echo "Nincs felhasználó ezzel az email címmel!";
     }
 
+    // Bezárjuk a kapcsolatot
+    $stmt->close();
     $conn->close();
-} else {
-    echo "Helytelen kérés.";
 }
 ?>
