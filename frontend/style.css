@@ -1,0 +1,156 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.icon img{
+    width: 30px;
+    padding: 10px;
+}
+.iconok{
+    text-align: right;
+    float: right;
+
+}
+
+
+
+
+header {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+
+}
+
+nav {
+    display: flex;
+    grid-template-rows: repeat(8,50px);
+    grid-column: auto;
+
+}
+
+
+
+nav a {
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #ffc107;
+    color: #000;
+}
+
+
+.products {
+    display: grid;   
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    margin-top: 20px;
+    
+    
+}
+
+.product {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.product img:hover {
+    transform: scale(1.1);
+}
+
+.product button {
+    margin-top: 10px;
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product button:hover {
+    background-color: #e0a800;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal-content {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    max-width: 80%;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.modal-content img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.modal-content img:hover {
+    transform: scale(1.1);
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #ffc107;
+}
+
+
