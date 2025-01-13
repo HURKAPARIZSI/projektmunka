@@ -44,3 +44,8 @@ function removeFromCart(index) {
 if (document.querySelector("table")) {
     window.onload = loadCart;
 }
+
+function calculateTotal() {
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById("total").innerText = `Teljes összeg: ${total} Ft`;
+}
