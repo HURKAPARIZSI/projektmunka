@@ -1,13 +1,8 @@
 <?php
 // Beállítjuk a kapcsolatot az adatbázissal
-$servername = "localhost";
-  $username = "felhasznalo";
-  $password = "jelszo"; 
-  $dbname = "projektdb";
+require("../includes/db.php");
 
-  $conn = new mysqli($servername, $username, $password, $dbname); // kapcsolat létrehozása
 
-// Ha a formot POST metódussal küldték el
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -26,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ellenőrizzük a jelszót (feltételezzük, hogy a jelszó hash-el van tárolva az adatbázisban)
         if (password_verify($password, $user['password'])) {
             // Sikeres bejelentkezés
+            $_SESSION['user_id'] = $user['user_id']; // Felhasználó azonosító mentése munkamenetbe
+            header("Location: protected.php"); // Átirányítás
             echo "Sikeres bejelentkezés, üdvözlünk, " . htmlspecialchars($user['username']) . "!";
             // Itt beállíthatnál session-t is, hogy a felhasználó be legyen jelentkezve
         } else {

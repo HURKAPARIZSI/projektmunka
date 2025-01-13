@@ -1,16 +1,9 @@
 <?php
-  $servername = "localhost";
-  $username = "felhasznalo";
-  $password = "jelszo"; 
-  $dbname = "projektdb";
-
-  $conn = new mysqli($servername, $username, $password, $dbname); // kapcsolat létrehozása
-
-
+require("../includes/db.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
+        $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['password2']);
