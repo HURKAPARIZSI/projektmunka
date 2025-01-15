@@ -49,3 +49,20 @@ function calculateTotal() {
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     document.getElementById("total").innerText = `Teljes összeg: ${total} Ft`;
 }
+
+// script.js
+document.addEventListener("DOMContentLoaded", () => {
+    const checkoutButton = document.getElementById("penztargomb");
+    const tableBody = document.querySelector("table tbody");
+
+    checkoutButton.addEventListener("click", (event) => {
+        // Ellenőrizzük, hogy van-e legalább egy termék a kosárban
+        const rows = tableBody.querySelectorAll("tr");
+        const hasItems = Array.from(rows).some(row => row.querySelector("td").textContent.trim() !== "");
+
+        if (!hasItems) {
+            event.preventDefault(); // Megakadályozza a továbbirányítást
+            alert("A kosár üres! Kérjük, adjon hozzá terméket a folytatáshoz.");
+        }
+    });
+});
