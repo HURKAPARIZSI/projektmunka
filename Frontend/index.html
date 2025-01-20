@@ -19,88 +19,73 @@
     <main>
         <section class="products">
             <div class="product">
-                <img src="img/kep_blackjack.jpg" alt="blackjack" onclick="openModal('blackjack')">
+                <img id="image-blackjack" src="img/kep_blackjack.jpg" alt="Blackjack">
                 <p>Blackjack asztal</p>
+                <label for="tipus-blackjack">Típus:</label>
+                <select id="tipus-blackjack" onchange="updateImage('image-blackjack', this.value, 'blackjack')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
                 <button onclick="addToCart('Blackjack asztal', 120000)">Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_roulett.jpg" alt="roulett" onclick="openModal('roulett')">
+                <img id="image-roulett" src="img/kep_roulett.jpg" alt="Roulett">
                 <p>Roulett asztal</p>
+                <label for="tipus-roulett">Típus:</label>
+                <select id="tipus-roulett" onchange="updateImage('image-roulett', this.value, 'roulett')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
                 <button onclick="addToCart('Roulett asztal', 99500)">Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_slot.jpg" alt="slot" onclick="openModal('slot')">
+                <img id="image-slot" src="img/kep_slot.jpg" alt="Slot">
                 <p>Slot</p>
+                <label for="tipus-slot">Típus:</label>
+                <select id="tipus-slot" onchange="updateImage('image-slot', this.value, 'slot')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
                 <button onclick="addToCart('Slot gép', 135000)">Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_kartya.jpg" alt="slot" onclick="openModal('kartyak')">
+                <img id="image-kartya" src="img/kep_kartya.jpg" alt="Kártyák">
                 <p>Kártyák</p>
+                <label for="tipus-kartya">Típus:</label>
+                <select id="tipus-kartya" onchange="updateImage('image-kartya', this.value, 'kartya')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
                 <button onclick="addToCart('Kártyák', 5000)">Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_poker.jpg" alt="slot" onclick="openModal('pokerasztal')">
+                <img id="image-poker" src="img/kep_poker.jpg" alt="Pokerasztal">
                 <p>Pokerasztal</p>
+                <label for="tipus-poker">Típus:</label>
+                <select id="tipus-poker" onchange="updateImage('image-poker', this.value, 'poker')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
                 <button onclick="addToCart('Pókerasztal', 179000)">Kosárba</button>
             </div>
             <div class="product">
-                <img src="img/kep_szerencsekerek.jpg" alt="slot" onclick="openModal('szerencsekerek')">
-                <p>Szerencsekerek</p>
+                <img id="image-szerencsekerek" src="img/kep_szerencsekerek.jpg" alt="Szerencsekerék">
+                <p>Szerencsekerék</p>
+                <label for="tipus-szerencsekerek">Típus:</label>
+                <select id="tipus-szerencsekerek" onchange="updateImage('image-szerencsekerek', this.value, 'szerencsekerek')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
                 <button onclick="addToCart('Szerencsekerék', 59000)">Kosárba</button>
             </div>
         </section>
-
         
-        <div id="blackjack" class="modal">
-            <span class="close" onclick="closeModal('blackjack')">&times;</span>
-            <div class="modal-content">
-                <img src="img/kep_blackjack2.jpg" alt="Termék 1 kép 1">
-                <img src="img/kep_blackjack3.jpg" alt="Termék 1 kép 2">
-                <img src="img/kep_blackjack4.jpg" alt="Termék 1 kép 3">
-            </div>
-        </div>
-
-        <div id="roulett" class="modal">
-            <span class="close" onclick="closeModal('roulett')">&times;</span>
-            <div class="modal-content">
-                <img src="img/kep_roulett2.jpg" alt="Termék 2 kép 1">
-                <img src="img/kep_roulett3.jpg" alt="Termék 2 kép 2">
-                <img src="img/kep_roulett4.jpg" alt="Termék 2 kép 3">
-            </div>
-        </div>
-
-        <div id="slot" class="modal">
-            <span class="close" onclick="closeModal('slot')">&times;</span>
-            <div class="modal-content">
-                <img src="img/kep_slot2.jpg" alt="Termék 3 kép 1">
-                <img src="img/kep_slot3.jpg" alt="Termék 3 kép 2">
-                <img src="img/kep_slot4.jpg" alt="Termék 3 kép 3">
-            </div>
-        </div>
-        <div id="kartyak" class="modal">
-            <span class="close" onclick="closeModal('kartyak')">&times;</span>
-            <div class="modal-content">
-                <img src="img/kep_kartya2.jpg" alt="Termék 1 kép 1">
-                <img src="img/kep_kartya3.jpg" alt="Termék 1 kép 2">
-                <img src="img/kep_kartya4.jpg" alt="Termék 1 kép 3">
-            </div>
-        </div>
-        <div id="pokerasztal" class="modal">
-            <span class="close" onclick="closeModal('pokerasztal')">&times;</span>
-            <div class="modal-content">
-                <img src="img/kep_poker2.jpg" alt="Termék 1 kép 1">
-                <img src="img/kep_poker3.jpg" alt="Termék 1 kép 2">
-                <img src="img/kep_poker4.jpg" alt="Termék 1 kép 3">
-            </div>
-        </div>
-        <div id="szerencsekerek" class="modal">
-            <span class="close" onclick="closeModal('szerencsekerek')">&times;</span>
-            <div class="modal-content">
-                <img src="img/kep_szerencsekerek2.jpg" alt="Termék 1 kép 1">
-                <img src="img/kep_szerencskerek3.jpg" alt="Termék 1 kép 2">
-                <img src="img/kep_szerencskerek4.jpg" alt="Termék 1 kép 3">
-            </div>
-        </div>
     </main>
 
     <script src="script.js"></script>
