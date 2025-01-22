@@ -1,41 +1,48 @@
 <?php
-// Beállítjuk a kapcsolatot az adatbázissal
-require("../includes/db.php");
-
+session_start();
+require("../includes/db.php"); // Adatbázis kapcsolat betöltése
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['email']; // Email mező
+    $password = $_POST['password']; // Jelszó mező
+    
+    // SQL lekérdezés előkészítése
+    $stmt = $conn->prepare("SELECT user_id, username, password FROM users WHERE email = ?");
+    if (!$stmt) {
+        die("SQL előkészítési hiba: " . $conn->error);
+    }
 
-    // Az SQL lekérdezés előkészítése
-    $sql = "SELECT * FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email); // 's' jelzi, hogy a paraméter típus string
+    // Paraméterek kötése
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Ha találunk felhasználót az adott email címhez
-    if ($result->num_rows > 0) {
+    if ($result->num_rows === 1) {
+        // Felhasználó megtalálva
         $user = $result->fetch_assoc();
-
-        // Ellenőrizzük a jelszót (feltételezzük, hogy a jelszó hash-el van tárolva az adatbázisban)
+        echo("kakifejasd");
+        // Jelszó ellenőrzése
         if (password_verify($password, $user['password'])) {
             // Sikeres bejelentkezés
-            $_SESSION['user_id'] = $user['user_id']; // Felhasználó azonosító mentése munkamenetbe
-            header("Location: protected.php"); // Átirányítás
-            echo "Sikeres bejelentkezés, üdvözlünk, " . htmlspecialchars($user['username']) . "!";
-            // Itt beállíthatnál session-t is, hogy a felhasználó be legyen jelentkezve
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['message'] = "Teszt üzenet!";
+            header("Location: ../../frontend/login.html");
+            echo("kakifej");
+            exit;
+            
         } else {
-            // Hibás jelszó
-            echo "Hibás jelszó!";
+            echo "Hibás jelszó.";
         }
     } else {
-        // Nincs olyan felhasználó, aki a megadott email címmel regisztrált
-        echo "Nincs felhasználó ezzel az email címmel!";
+        echo "Hibás email-cím.";
     }
 
-    // Bezárjuk a kapcsolatot
     $stmt->close();
-    $conn->close();
 }
+else{
+    echo("asdef");
+}
+$conn->close(); // Kapcsolat lezárása
 ?>
