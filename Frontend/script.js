@@ -26,9 +26,9 @@ const images = {
         ver3: 'img/kep_poker4.jpg',
     },
     szerencsekerek: {
-        ver1: 'img/kep_szerencsekerek2.jpg',
-        ver2: 'img/kep_szerencsekerek3.jpg',
-        ver3: 'img/kep_szerencsekerek4.jpg',
+        ver1: 'img/kep_szerencskerek2.jpg',
+        ver2: 'img/kep_szerencskerek3.jpg',
+        ver3: 'img/kep_szerencskerek4.jpg',
     },
 };
 
@@ -85,8 +85,3 @@ function updateCartView() {
     });
 }
 // Mennyiség növelése
-function incrementQuantity(index) {
-    cart[index].quantity++;
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartView();
-}
