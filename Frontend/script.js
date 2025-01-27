@@ -118,18 +118,13 @@ function decrementQuantity(index) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartView();
-
-    // Alert megjelenítése
-    alert(`A(z) \"${productName}\" termék hozzáadva a kosárhoz, ára: ${price} Ft.`);
-
 }
 
 // Termék eltávolítása a kosárból
 function removeFromCart(index) {
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
-    update 
-    CartView();
+    updateCartView(); // Itt javítva a függvény neve
 }
 
 // Oldal betöltésekor frissítés
