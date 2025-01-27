@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Ellenőrzés, hogy a felhasználó be van-e jelentkezve
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    //echo "Üdvözlünk, " . htmlspecialchars($_SESSION['username']) . "! Be vagy jelentkezve.";
+    $_SESSION['loggedinimg'] = "img/pipa_icon.png";
+
+} else {
+    $_SESSION['loggedinimg'] = "img/5580993.png";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -8,13 +21,13 @@
 </head>
 <body>
     <header>
-        <h1>Webshop.kft</h1>    
+        <h1>Webshop.kft</h1>  
+        <a href="logout.php">Kijelentkezés</a>  
         <nav>
-            <a class="item-1" href="index.html">Kezdőlap</a>
-            <a class="item-2" href="contact.html">Kapcsolatok</a>
-            <a class="icon item-3" href="cart.html"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a> 
-            <a class="icon item-4" href="login.html"><img src="img/5580993.png" alt="Bejelentkezés" title="Bejelentkezés"></a>       
-        </nav>
+            <a class="item-1" href="index.php">Kezdőlap</a>
+            <a class="item-2" href="contact.php">Kapcsolatok</a>
+            <a class="icon item-3" href="cart.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a> 
+            <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
     </header>
     <main>
         <section class="products">

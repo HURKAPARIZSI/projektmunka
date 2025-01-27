@@ -49,7 +49,7 @@ function loadCart() {
 function removeFromCart(index) {
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartView(); // Itt javítva a függvény neve
+    loadCart();
 }
 
 // Kosár oldal betöltéskor a kosár tartalmát megjelenítjük

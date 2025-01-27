@@ -197,6 +197,7 @@ button:hover {
     background-color: #e0a800;
 }
 
+
 /* Reszponzív elrendezés */
 @media (max-width: 600px) {
     form {
