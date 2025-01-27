@@ -118,6 +118,10 @@ function decrementQuantity(index) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartView();
+
+    // Alert megjelenítése
+    alert(`A(z) \"${productName}\" termék hozzáadva a kosárhoz, ára: ${price} Ft.`);
+
 }
 
 // Termék eltávolítása a kosárból
