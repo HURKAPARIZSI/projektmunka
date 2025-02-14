@@ -2,7 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-image: url(img/hatter.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #333;
 }
 
@@ -39,7 +41,7 @@ main {
     padding: 20px;
     max-width: 1200px;
     margin: auto;
-    background-color: #fff;
+    background-color: hsl(0, 0%, 100%, 0.8);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -68,7 +70,7 @@ button:hover {
 }
 
 .product {
-    background-color: #f8f9fa;
+    background-color: hsl(210, 17%, 98%);
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px;

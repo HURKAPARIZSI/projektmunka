@@ -54,10 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                 $item['quantity']++;
                 $found = true;
                 break;
-            }else{
-                echo '<pre>';  // A formázás érdekében, hogy könnyebben olvasható legyen
-print_r($_SESSION['cart']);  // Kosár tömb kiíratása
-echo '</pre>';
+            }
+
 
             }
         }
@@ -70,10 +68,7 @@ echo '</pre>';
                 'quantity' => 1,
             ];
         }
-
-        echo "<p>" . htmlspecialchars($productName) . " hozzáadva a kosárhoz (Kép: " . htmlspecialchars($selectedImage) . ")!</p>";
     }
-}
 
 $conn->close();
 ?>
@@ -94,9 +89,7 @@ $conn->close();
             <a class="item-1" href="index.php">Kezdőlap</a>
             <a class="item-2" href="contact.php">Kapcsolatok</a>
             <a class="icon item-3" href="cart.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a>
-            <?php if ($cartCount > 0): ?>
-                    <span class="cart-count"><?= $cartCount ?></span>
-                <?php endif; ?>
+            
             <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
     </header>
     <main>

@@ -90,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['message'] = "Bejelentkezve!";
-            echo"bejelentkezve";
             header("Location: login.php");
             exit;   
             
