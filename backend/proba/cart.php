@@ -59,6 +59,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <tr>
                     <th>Termék</th>
                     <th>Ár</th>
+                    <th>Darab</th>
                     <th>Művelet</th>
                 </tr>
             </thead>
@@ -70,8 +71,10 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                         echo '<tr>';
                         echo '<td>' . htmlspecialchars($item['name']) . '</td>';
                         echo '<td>' . htmlspecialchars($item['price']) . ' Ft</td>';
+                        echo '<td>' . htmlspecialchars($item['quantity']) . '</td>';
                         echo '<td><a href="cart.php?remove=' . htmlspecialchars($item['name']) . '"><button>Eltávolítás</button></a></td>';
                         echo '</tr>';
+                        
                     }
                 } else {
                     echo '<tr><td colspan="3">A kosár üres.</td></tr>';

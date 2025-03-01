@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "felhasznalo";
-$password = "jelszo"; 
-$dbname = "projektdb";
+$username = "root";
+$password = ""; 
+$dbname = "projekt_db";
 
 // Adatbázis kapcsolat létrehozása
 $conn = new mysqli($servername, $username, $password, $dbname);
