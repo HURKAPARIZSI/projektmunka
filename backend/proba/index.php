@@ -68,8 +68,9 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         <a href="logout.php">Kijelentkezés</a>  
         <a href="email.php">asdasd  </a>
         <nav>
-            <a class="item-1" href="index.php">Kezdőlap</a>
-            <a class="item-2" href="contact.php">Kapcsolatok</a>
+            <a class="item-1" href="fooldal.php">Főoldal</a>
+            <a class="item-2" href="index.php">Termékek</a>
+            <a class="item-3" href="contact.php">Kapcsolatok</a>
             <a class="icon" href="cart.php">
                 <img src="img/th.jpg" alt="Kosár" title="Kosár">
                 <?php if ($cartCount > 0): ?>
