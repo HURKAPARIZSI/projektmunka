@@ -8,16 +8,13 @@ if (!empty($_SESSION['message'])) {
     unset($_SESSION['message']); // Üzenet törlése
 }
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    $iconSrc = "img/pipa_icon.png";
+    $_SESSION['loggedinimg'] = "img/pipa_icon.png";
     //echo "Üdvözlünk, " . htmlspecialchars($_SESSION['username']) . "! Be vagy jelentkezve.";
     //header("Location: logout.php");
-    $iconLink = "profile.php";
 
 } else {
-    $iconSrc = "img/5580993.png"; // Bejelentkezési ikon
-    $iconLink = "login.php"; // Bejelentkezés oldal
+    $_SESSION['loggedinimg'] = "img/5580993.png";
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +33,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <a class="item-2" href="index.php">Termékek</a>
             <a class="item-3" href="contact.php">Kapcsolatok</a>
             <a class="icon" href="cart.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a>
-            <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
+            <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
         </nav>
     </header>
     <main>
