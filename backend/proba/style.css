@@ -2,13 +2,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-image: url(img/hatter.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #333;
 }
 
 .icon img {
     width: 30px;
-    padding: 10px;
 }
 
 .iconok {

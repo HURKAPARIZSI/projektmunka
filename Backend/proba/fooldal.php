@@ -25,8 +25,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 <body>
     <header>
         <h1>Webshop.kft</h1>  
-        <a href="logout.php">Kijelentkezés</a>  
-        <a href="email.php">asdasd  </a>
+        <!--<a href="logout.php">Kijelentkezés</a>  
+        <a href="email.php">asdasd  </a> -->
         <nav>
             <a class="item-1" href="fooldal.php">Főoldal</a>
             <a class="item-2" href="index.php">Termékek</a>
@@ -41,21 +41,48 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     </header>
     <main>
     <div class="slideshow-container">
-        <div class="slide fade">
-            <img src="img/asd.jpg" alt="Kép 1">
-            <a class="text-overlay" href="index.php">Termékeink</a>
-        </div>
-        <div class="slide fade">
-            <img src="img/asd2.jpg" alt="Kép 2">
-            <a class="text-overlay" href="contact.php">Kapcsolatok</a>
-        </div>
-        <div class="slide fade">
-            <img src="img/asd3.jpg" alt="Kép 3">
-            <a class="text-overlay" href="https://vegas.hu" target="_blank">Vegas.hu</a>
-        </div>
+    <div class="slide fade">
+        <img src="img/asd.jpg" alt="Kép 1">
+        <a class="text-overlay" href="index.php">Termékeink</a>
+    </div>
+    <div class="slide fade">
+        <img src="img/asd2.jpg" alt="Kép 2">
+        <a class="text-overlay" href="contact.php">Kapcsolatok</a>
+    </div>
+    <div class="slide fade">
+        <img src="img/asd3.jpg" alt="Kép 3">
+        <a class="text-overlay" href="https://vegas.hu" target="_blank">Vegas.hu</a>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Előző és következő gombok -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+
+    <script>
+        let slideIndex = 0;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let slides = document.querySelectorAll(".slide");
+
+            if (n >= slides.length) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 1; }
+
+            slides.forEach(slide => slide.style.display = "none");
+            slides[slideIndex].style.display = "block";
+        }
+
+        // Automatikus váltás (opcionális)
+        setInterval(() => {
+            plusSlides(1);
+        }, 5000);
+    </script>
     </main>
 </body>
 </html>

@@ -65,8 +65,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 <body>
     <header>
         <h1>Webshop.kft</h1>  
-        <a href="logout.php">Kijelentkezés</a>  
-        <a href="email.php">asdasd  </a>
+        <!--<a href="logout.php">Kijelentkezés</a>  
+        <a href="email.php">asdasd  </a> -->
         <nav>
             <a class="item-1" href="fooldal.php">Főoldal</a>
             <a class="item-2" href="index.php">Termékek</a>
