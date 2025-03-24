@@ -1,12 +1,16 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include_once '../includes/db.php';
 include_once 'adatbazis.php';
 
 // Ellenőrzés, hogy a felhasználó be van-e jelentkezve
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $_SESSION['loggedinimg'] = "img/pipa_icon.png";
+    $_SESSION['iconLink'] = "logout.php";
 } else {
     $_SESSION['loggedinimg'] = "img/5580993.png";
+    $_SESSION['iconLink'] = "login.php";
 }
 
 // Termékek betöltése
@@ -64,11 +68,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 </head>
 <body>
     <header>
-        <h1>Webshop.kft</h1>  
-<<<<<<< HEAD
-        <!--<a href="logout.php">Kijelentkezés</a>  
-        <a href="email.php">asdasd  </a> -->
-=======
+        <h1>Wbshop.kft</h1>  
         
         <nav>
             <a class="item-1" href="fooldal.php">Főoldal</a>
@@ -80,7 +80,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                     <span class="cart-count"><?= $cartCount ?></span>
                 <?php endif; ?>
             </a> 
-            <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
+            <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
     </header>
     <main>
         <section class="products">

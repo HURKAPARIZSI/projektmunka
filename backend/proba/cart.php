@@ -48,9 +48,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                     <span class="cart-count"><?= $cartCount ?></span>
                 <?php endif; ?>
             </a> 
-            <a class="icon" href="login.php">
-                <img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés">
-            </a> 
+            <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
         </nav>
     </header>
     <main>

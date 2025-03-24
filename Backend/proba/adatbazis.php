@@ -37,22 +37,22 @@ class Database {
             return $user;
         }
         
-        return null;
+        return false;
     }
     public function getUserByEmail($email) {
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $email); // 's' az email típus, mert string
+        $stmt->bind_param("s", $email); 
         $stmt->execute();
         $result = $stmt->get_result();
     
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            $_SESSION['user'] = $user; // A felhasználói adatokat session-be is tárolhatjuk
+            $_SESSION['user'] = $user; // A felhasználói adatok sessionbe
             return $user;
         }
         
-        return null; // Ha nincs találat, akkor null-t adunk vissza
+        return null; 
     }
 
     public function createCartToUser($user_id, $product_id) {

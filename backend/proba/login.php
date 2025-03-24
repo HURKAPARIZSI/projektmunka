@@ -33,7 +33,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <a class="item-2" href="index.php">Termékek</a>
             <a class="item-3" href="contact.php">Kapcsolatok</a>
             <a class="icon" href="cart.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a>
-            <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
+            <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
         </nav>
     </header>
     <main>
@@ -55,7 +55,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             
             <button type="submit">Bejelentkezés</button>
             <p><a href="register.php">Regisztráció</a></p>
+
+            <?php if ($_SESSION['loggedin'] === true): ?>
+            <a href="logout.php">Kijelentkezés</a>
+            <?php endif;?>
         </form>
+        
     </main>
 </body>
 </html>
@@ -63,35 +68,27 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
 
 <?php
-require("../includes/db.php"); // Adatbázis kapcsolat betöltése
+require("../includes/db.php"); 
+require("adatbazis.php");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email']; // Email mező
-    $password = $_POST['password']; // Jelszó mező
-    $_SESSION['error'] = "4";
-    // SQL lekérdezés előkészítése
-    $stmt = $conn->prepare("SELECT user_id, username, password FROM users WHERE email = ?");
-    if (!$stmt) {
-        $_SESSION['error'] = "4";
+    $email = $_POST['email']; 
+    $password = $_POST['password']; 
+
+
+    $user = $database -> getUserByEmail($email);
+    if (!$user) {
         die("SQL előkészítési hiba: " . $conn->error);
     }
-
-    // Paraméterek kötése
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $_SESSION['error'] = "1";
-    if ($result->num_rows === 1) {
-        // Felhasználó megtalálva
-        $user = $result->fetch_assoc();
-        $_SESSION['error'] = "2";
-        // Jelszó ellenőrzése
+       
+    if ($user) {
         if (password_verify($password, $user['password'])) {
             // Sikeres bejelentkezés
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $user['username'];
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['message'] = "Bejelentkezve!";
-            header("Location: login.php");
+            header("Location: index.php");
             exit;   
             
         } else {
