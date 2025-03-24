@@ -68,7 +68,11 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 </head>
 <body>
     <header>
-        <h1>Wbshop.kft</h1>  
+        <h1>Webshop.kft</h1>  
+<<<<<<< HEAD
+        <!--<a href="logout.php">Kijelentkezés</a>  
+        <a href="email.php">asdasd  </a> -->
+=======
         
         <nav>
             <a class="item-1" href="fooldal.php">Főoldal</a>
@@ -80,7 +84,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                     <span class="cart-count"><?= $cartCount ?></span>
                 <?php endif; ?>
             </a> 
-            <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
+            <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
     </header>
     <main>
         <section class="products">
