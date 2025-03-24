@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = ""; 
-$dbname = "projek_db";
+$dbname = "";
 
 // Adatbázis kapcsolat létrehozása
 $conn = new mysqli($servername, $username, $password, $dbname);
