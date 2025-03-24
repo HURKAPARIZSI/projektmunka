@@ -2,7 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-image: url(img/hatter.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #333;
 }
 
@@ -105,12 +107,40 @@ img {
     text-align: center;
 }
 
-/* Animáció a fade effektre */
-.fade {
-    animation: fadeEffect 1.5s;
+/* Előző és következő gombok */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    user-select: none;
+    z-index: 10; /* Mindig látszódjon */
 }
 
-@keyframes fadeEffect {
-    from {opacity: 0.4;}
-    to {opacity: 1;}
+/* Bal oldali gomb */
+.prev {
+    left: 20px;
 }
+
+/* Jobb oldali gomb */
+.next {
+    right: 20px;
+}
+
+/* Hover effekt */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Slideshow konténer */
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+}
+
