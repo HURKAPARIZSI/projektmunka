@@ -1,20 +1,25 @@
 <?php
-session_start();
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    //echo "Üdvözlünk, " . htmlspecialchars($_SESSION['username']) . "! Be vagy jelentkezve.";
-    $_SESSION['loggedinimg'] = "img/pipa_icon.png";
+include_once '../includes/db.php';
+include_once 'adatbazis.php';
 
+
+// Ellenőrzés, hogy a felhasználó be van-e jelentkezve
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    $_SESSION['loggedinimg'] = "img/pipa_icon.png";
 } else {
     $_SESSION['loggedinimg'] = "img/5580993.png";
 }
+
+
 ?>
 
+
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapcsolatok</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,22 +39,5 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             </a> 
             <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
     </header>
-    <main>
-        <h1>Kapcsolatok</h1>
-        <form>
-            <label for="name">Név:</label>
-            <input type="text" id="name" name="name">
-            
-            <label for="message">Üzenet:</label>
-            <textarea id="message" name="message"></textarea>
-            
-            <button type="submit">Küldés</button>
-        </form>
-        <address>
-            <p>Email: info@webshop.hu</p>
-            <p>Telefon: +36 30 123 4567</p>
-        </address>
-    </main>
-
 </body>
 </html>

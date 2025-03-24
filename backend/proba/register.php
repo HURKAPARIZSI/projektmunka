@@ -24,14 +24,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Webshop.kft</h1>
+<header>
+        <h1>Webshop.kft</h1>  
+        <a href="logout.php">Kijelentkezés</a>  
+        <!--<a href="email.php">asdasd  </a>-->
         <nav>
-            <a href="index.php">Kezdőlap</a>
-            <a href="contact.php">Kapcsolatok</a>
-            <a class="icon" href="login.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a> 
+            <a class="item-1" href="main.php">Kezdőlap</a>
+            <a class="item-1" href="index.php">Termékek</a>
+            <a class="item-2" href="contact.php">Kapcsolatok</a>
+            <a class="icon" href="cart.php">
+                <img src="img/th.jpg" alt="Kosár" title="Kosár">
+                <?php if ($cartCount > 0): ?>
+                    <span class="cart-count"><?= $cartCount ?></span>
+                <?php endif; ?>
+            </a> 
             <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
-        </nav>
     </header>
     <main>
         <h1>Regisztráció</h1>
@@ -55,7 +62,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             
             <button type="submit">Regisztráció</button>
 
-            <p>Van már fiókod? <a href="login.html">Bejelentkezés</a></p>
+            <p>Van már fiókod? <a href="login.php">Bejelentkezés</a></p>
         </form>
     </main>
 </body>
