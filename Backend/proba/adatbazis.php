@@ -130,13 +130,31 @@ class Database {
         return $stmt->execute();
     }*/
 
-    public function deleteCartItem( $cart_id,$product_id ) {
+    public function deleteCartItem($cart_id, $product_id) {
+        // Ellenőrizzük, hogy a kapcsolat érvényes
+        if ($this->conn === null) {
+            throw new Exception('Database connection is not established.');
+        }
+    
+        // SQL lekérdezés előkészítése
         $sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?";
         $stmt = $this->conn->prepare($sql);
+    
+        if ($stmt === false) {
+            throw new Exception('Failed to prepare SQL query: ' . $this->conn->error);
+        }
+    
+        // Paraméterek kötése
         $stmt->bind_param("ii", $cart_id, $product_id);
-
-        return $stmt->execute();
+    
+        // Lekérdezés végrehajtása
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            throw new Exception('Error executing query: ' . $stmt->error);
+        }
     }
+    
 
     public function clearCart($user_id) {
         $sql = "DELETE FROM cart WHERE user_id = ?";

@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once("adatbazis.php");
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $_SESSION['loggedinimg'] = "img/pipa_icon.png";
@@ -7,20 +7,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $_SESSION['loggedinimg'] = "img/5580993.png";
 }
 
-// Ha az eltávolítás gombot megnyomták
-if (isset($_GET['remove'])) {
-    $productId = $_GET['remove'];
 
-    // Ellenőrizzük, hogy a termék létezik a kosárban
-    foreach($cartProducts as $key){
-        if($key['product_id'] = $productId){
-            $database->deleteCartItem($_SESSION['cart']['cart_id'],$product_id);
-        }
-    }
-
-    // Újrarendezni a kosarat, hogy az eltávolított elem ne hagyjon üres helyet
-    $_SESSION['cart'] = array_values($_SESSION['cart']);
-}
 /*echo '<pre>';
 print_r($_SESSION['cart']);
 echo '</pre>';
@@ -51,6 +38,25 @@ if (isset($_SESSION['cart']) && isset($_SESSION['products'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rendeles'])){
     
 }
+
+if (isset($_GET['remove'])) {
+    $productId = $_GET['remove'];
+
+    // Ellenőrizzük, hogy a termék létezik a kosárban
+    foreach ($cartProducts as $key => $value) {
+        if ($value['product_id'] == $productId) {
+            $database->deleteCartItem($_SESSION['cart']['cart_id'], $productId);
+            // Töröljük a terméket a kosárból
+            unset($cartProducts[$key]);
+            break;  // Kilépünk a ciklusból, mert megtaláltuk a törlendő elemet
+        }
+    }
+
+    // Újrarendezni a kosarat, hogy az eltávolított elem ne hagyjon üres helyet
+    $_SESSION['cart'] = array_values($cartProducts);
+}
+//print_r($cartProducts);
+
 
 
 
