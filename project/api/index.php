@@ -17,42 +17,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 $products = $_SESSION['products'] ?? [];
 
 
-// Kosárba helyezés
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $productName = $_POST['products'] ?? '';
-
-    $kivalasztott = null;
-    foreach ($products as $elem) {
-        if ($elem['name'] === $productName) { 
-            $kivalasztott = $elem;
-            break;
-        }
-    }
-
-    if ($kivalasztott) {
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
-
-        $found = false;
-        foreach ($_SESSION['cart'] as &$item) {
-            if ($item['name'] === $productName) {
-                $item['quantity']++;
-                $found = true;
-                break;
-            }
-        }
-
-        if (!$found) {
-            $_SESSION['cart'][] = [
-                'name' => htmlspecialchars($productName),
-                'price' => (float)$kivalasztott['price'],
-                'image' => htmlspecialchars($kivalasztott['image_default']),
-                'quantity' => 1,
-            ];
-        }
-    }
-}*/
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
     $productName = $_POST['products'] ?? '';
@@ -98,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
             $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE item_id = ?");
             $stmt->bind_param("ii", $new_quantity, $row['item_id']);
             $stmt->execute();
+            
         } else {
             // Új terméket adunk a kosárhoz
             $stmt = $conn->prepare("INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)");
@@ -107,21 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
 
 
     }else{
-<<<<<<< HEAD
-        $errorMessagge = "Nem vagy bejelentkezve";
-=======
         header("Location: login.php?msg=not_logged_in");
         exit;
->>>>>>> 8090f88b2cf1d0db76d8cd93664df951b0bcc0ca
     }
 
-    
+
 }
-
-
-
-
-
 
 $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
@@ -149,6 +105,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </a> 
             <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
+        </nav>
     </header>
     <main>
         <section class="products">
