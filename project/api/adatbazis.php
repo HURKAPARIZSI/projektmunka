@@ -54,32 +54,6 @@ class Database {
         
         return null; 
     }
-
-    public function createCartToUser($user_id, $product_id) {
-        // Először megnézzük, hogy a termék már szerepel-e a kosárban
-        $sql = "SELECT cart_id, quantity FROM cart WHERE user_id = ? AND product_id = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $user_id, $product_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            // Ha már szerepel a kosárban, frissítjük a mennyiséget
-            $row = $result->fetch_assoc();
-            $newQuantity = $row['quantity'] + 1;
-            return $this->updateCartItem($row['cart_id'], $newQuantity);
-        } else {
-            // Ha nincs még benne, új sort adunk hozzá
-            $sql = "INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, 1)";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ii", $user_id, $product_id, 1);
-
-            if ($stmt->execute()) {
-                return $stmt->insert_id; // Új kosár ID visszaadása
-            }
-            return false;
-        }
-    }
     /*public function getProductByCart($product_id){
         $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?");
         $stmt -> bind_param('i', $product_id);
@@ -130,13 +104,31 @@ class Database {
         return $stmt->execute();
     }*/
 
-    public function deleteCartItem( $cart_id,$product_id ) {
+    public function deleteCartItem($cart_id, $product_id) {
+        // Ellenőrizzük, hogy a kapcsolat érvényes
+        if ($this->conn === null) {
+            throw new Exception('Database connection is not established.');
+        }
+    
+        // SQL lekérdezés előkészítése
         $sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?";
         $stmt = $this->conn->prepare($sql);
+    
+        if ($stmt === false) {
+            throw new Exception('Failed to prepare SQL query: ' . $this->conn->error);
+        }
+    
+        // Paraméterek kötése
         $stmt->bind_param("ii", $cart_id, $product_id);
-
-        return $stmt->execute();
+    
+        // Lekérdezés végrehajtása
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            throw new Exception('Error executing query: ' . $stmt->error);
+        }
     }
+    
 
     public function clearCart($user_id) {
         $sql = "DELETE FROM cart WHERE user_id = ?";
