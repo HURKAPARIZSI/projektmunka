@@ -8,19 +8,35 @@ body {
     color: #333;
 }
 
+.icon img {
+    width: 30px;
+}
+
+.iconok {
+    text-align: right;
+    float: right;
+}
 
 header {
     background-color: #000;
     color: #fff;
     padding: 10px 20px;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    white-space: nowrap; 
+}
+
+/* NAVIGÁCIÓ STÍLUSOK */
 nav {
     display: flex;
-    justify-content: space-around;
-    flex: auto auto ; 
-    
+    align-items: center;
+    gap: 10px;
 }
 
 nav a {
