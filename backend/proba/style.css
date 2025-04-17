@@ -203,3 +203,7 @@ img {
     from {opacity: 0.4;}
     to {opacity: 1;}
 }
+
+.error-message{
+    color: red;
+}

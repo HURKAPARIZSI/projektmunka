@@ -107,7 +107,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
 
 
     }else{
+<<<<<<< HEAD
         $errorMessagge = "Nem vagy bejelentkezve";
+=======
+        header("Location: login.php?msg=not_logged_in");
+        exit;
+>>>>>>> 8090f88b2cf1d0db76d8cd93664df951b0bcc0ca
     }
 
     
