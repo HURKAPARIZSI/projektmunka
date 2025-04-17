@@ -107,7 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
 
 
     }else{
-        echo"Nem vagy bejelentkezve";
+        header("Location: login.php?msg=not_logged_in");
+        exit;
     }
 
     
@@ -132,7 +133,6 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 <body>
     <header>
         <h1>Webshop.kft</h1>  
-        
         <nav>
             <a class="item-1" href="fooldal.php">Főoldal</a>
             <a class="item-2" href="index.php">Termékek</a>
@@ -144,6 +144,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <?php endif; ?>
             </a> 
             <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
+        </nav>
     </header>
     <main>
         <section class="products">

@@ -56,7 +56,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             
             <button type="submit">Regisztráció</button>
 
-            <p>Van már fiókod? <a href="login.html">Bejelentkezés</a></p>
+            <p>Van már fiókod? <a href="login.php">Bejelentkezés</a></p>
         </form>
     </main>
 </body>
