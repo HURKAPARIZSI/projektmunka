@@ -80,26 +80,45 @@ class Database {
             return false;
         }
     }
+    /*public function getProductByCart($product_id){
+        $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?");
+        $stmt -> bind_param('i', $product_id);
+    }*/
+
 
     public function getCartByUser($user_id) {
-        $sql = "SELECT *
-                FROM cart c 
-                JOIN products p ON c.product_id = p.product_id 
-                WHERE c.user_id = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $user_id);
+        global $conn;
+    
+        // 1. Kosár lekérdezése user alapján
+        $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ?");
+        $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        $cartItems = [];
-        while ($row = $result->fetch_assoc()) {
-            $cartItems[] = $row;
+    
+        if ($row = $result->fetch_assoc()) {
+            $cart_id = $row['cart_id'];
+        } else {
+            echo "Nincs ilyen cart_id";
+            return []; // vagy null
         }
-
+    
+        // 2. Kosár elemeinek lekérdezése
+        $stmt = $conn->prepare("SELECT * FROM cart_items WHERE cart_id = ?");
+        $stmt->bind_param("i", $cart_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $cartItems = [];
+    
+        while ($item = $result->fetch_assoc()) {
+            $cartItems[] = $item;
+        }
+    
         return $cartItems;
     }
+    
 
-    public function updateCartItem($cart_id, $quantity) {
+    /*public function updateCartItem($cart_id, $quantity) {
         if ($quantity <= 0) {
             return $this->deleteCartItem($cart_id);
         }
@@ -109,12 +128,12 @@ class Database {
         $stmt->bind_param("ii", $quantity, $cart_id);
         
         return $stmt->execute();
-    }
+    }*/
 
-    public function deleteCartItem($cart_id) {
-        $sql = "DELETE FROM cart WHERE cart_id = ?";
+    public function deleteCartItem( $cart_id,$product_id ) {
+        $sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $cart_id);
+        $stmt->bind_param("ii", $cart_id, $product_id);
 
         return $stmt->execute();
     }
@@ -131,7 +150,16 @@ class Database {
 
 $database = new Database($conn);
 $products = $database->getProducts();
-//print_r($products);
+$_SESSION['products'] = $products;
+if(isset($_SESSION['user_id'])){
+    $_SESSION['cart'] = $database->getCartByUser($_SESSION['user_id']);
+}else{
+
+}
+
+
+
+//print_r($products)
 
 
 ?>

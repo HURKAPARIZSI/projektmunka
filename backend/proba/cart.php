@@ -12,19 +12,50 @@ if (isset($_GET['remove'])) {
     $productId = $_GET['remove'];
 
     // Ellenőrizzük, hogy a termék létezik a kosárban
-    foreach ($_SESSION['cart'] as $key => $item) {
-        if ($item['name'] == $productId) {
-            unset($_SESSION['cart'][$key]); // Eltávolítjuk a terméket a kosárból
-            break;
+    foreach($cartProducts as $key){
+        if($key['product_id'] = $productId){
+            $database->deleteCartItem($_SESSION['cart']['cart_id'],$product_id);
         }
     }
 
     // Újrarendezni a kosarat, hogy az eltávolított elem ne hagyjon üres helyet
     $_SESSION['cart'] = array_values($_SESSION['cart']);
 }
+/*echo '<pre>';
+print_r($_SESSION['cart']);
+echo '</pre>';
+echo '<pre>';
+print_r($_SESSION['products']);
+echo '</pre>';*/
 
 // Kosár darabszámának meghatározása
 $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+
+$cartProducts = [];
+
+if (isset($_SESSION['cart']) && isset($_SESSION['products'])) {
+    foreach ($_SESSION['cart'] as $cartItem) {
+        foreach ($_SESSION['products'] as $product) {
+            if ($cartItem['product_id'] == $product['product_id']) {
+                $cartProducts[] = [
+                    'product_id' => $product['product_id'],
+                    'name' => $product['name'],
+                    'quantity' => $cartItem['quantity'],
+                    'price' => $product['price']
+                ];
+            }
+        }
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rendeles'])){
+    
+}
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +96,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             <tbody>
                 <?php
                 // Ellenőrizzük, hogy van-e kosár a session-ben
-                if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                    foreach ($_SESSION['cart'] as $item) {
+                if (isset($cartProducts) && !empty($cartProducts)) {
+                    foreach ($cartProducts as $item) {
                         echo '<tr>';
                         echo '<td>' . htmlspecialchars($item['name']) . '</td>';
                         echo '<td>' . htmlspecialchars($item['price']) . ' Ft</td>';
@@ -81,7 +112,9 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 ?>
             </tbody>
         </table>
-        <a id="penztargomb" href="penztar.php">Pénztár</a>
+        <form method="post">
+            <a href="penztar.php">Rendeles</a>
+        </form>
     </main>
 </body>
 </html>

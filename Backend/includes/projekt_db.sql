@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 14. 17:32
--- Kiszolgáló verziója: 10.4.27-MariaDB
--- PHP verzió: 8.0.25
+-- Létrehozás ideje: 2025. Ápr 17. 11:27
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Adatbázis: `projektdb`
+-- Adatbázis: `projekt_db`
 --
 
 DELIMITER $$
@@ -85,27 +85,47 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `orders`
+-- Tábla szerkezet ehhez a táblához `cart`
 --
 
-CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
+CREATE TABLE `cart` (
+  `cart_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `created_at`) VALUES
+(1, 7, '2025-04-15 16:51:34');
 
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `order_items`
+-- Tábla szerkezet ehhez a táblához `cart_items`
 --
 
-CREATE TABLE `order_items` (
-  `order_item_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
+CREATE TABLE `cart_items` (
+  `item_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `added_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `cart_items`
+--
+
+INSERT INTO `cart_items` (`item_id`, `cart_id`, `product_id`, `quantity`, `added_at`) VALUES
+(1, 1, 1, 13, '2025-04-15 16:57:46'),
+(2, 1, 2, 3, '2025-04-17 09:49:12'),
+(3, 1, 3, 3, '2025-04-17 09:49:17'),
+(4, 1, 8, 1, '2025-04-17 09:49:42'),
+(5, 1, 9, 1, '2025-04-17 09:49:44'),
+(6, 1, 10, 1, '2025-04-17 09:49:45');
 
 -- --------------------------------------------------------
 
@@ -129,16 +149,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `price`, `stock`, `image_default`, `image_ver1`, `image_ver2`, `image_ver3`) VALUES
-(1, 'Roulett asztal', '49.99', 20, 'img/kep_roulett.jpg', 'img/kep_roulett2.jpg', 'img/kep_roulett3.jpg', 'img/kep_roulett4.jpg'),
-(2, 'Kártyák', '149.99', 10, 'img/kep_kartya.jpg', 'img/kep_kartya2.jpg', 'img/kep_kartya3.jpg', 'img/kep_kartya4.jpg'),
-(3, 'Szerencsekerék', '9.99', 50, 'img/kep_szerencsekerek.jpg', 'img/kep_szerencskerek2.jpg', 'img/kep_szerencskerek3.jpg', 'img/kep_szerencskerek4.jpg'),
-(4, 'Poker asztal', '89.99', 15, 'img/kep_poker.jpg', 'img/kep_poker2.jpg', 'img/kep_poker3.jpg', 'img/kep_poker4.jpg'),
-(5, 'Slot', '4.99', 100, 'img/kep_slot.jpg', 'img/kep_slot2.jpg', 'img/kep_slot3.jpg', 'img/kep_slot4.jpg'),
-(6, 'Blackjack asztal', '29.99', 25, 'img/kep_blackjack.jpg', 'img/kep_blackjack2.jpg', 'img/kep_blackjack3.jpg', 'img/kep_blackjack4.jpg'),
-(7, 'Craps Dice Table', '199.99', 5, NULL, NULL, NULL, NULL),
-(8, 'Dealer Button', '2.99', 50, NULL, NULL, NULL, NULL),
-(9, 'Card Shuffler Machine', '39.99', 20, NULL, NULL, NULL, NULL),
-(10, 'Casino Chips Case', '99.99', 10, NULL, NULL, NULL, NULL);
+(1, 'Roulett asztal', 49.99, 20, 'img/kep_roulett.jpg', 'img/kep_roulett2.jpg', 'img/kep_roulett3.jpg', 'img/kep_roulett4.jpg'),
+(2, 'Kártyák', 149.99, 10, 'img/kep_kartya.jpg', 'img/kep_kartya2.jpg', 'img/kep_kartya3.jpg', 'img/kep_kartya4.jpg'),
+(3, 'Szerencsekerék', 9.99, 50, 'img/kep_szerencsekerek.jpg', 'img/kep_szerencsekerek2.jpg', 'img/kep_szerencskerek3.jpg', 'img/kep_szerencskerek4.jpg'),
+(4, 'Poker asztal', 89.99, 15, 'img/kep_poker.jpg', 'img/kep_poker2.jpg', 'img/kep_poker3.jpg', 'img/kep_poker4.jpg'),
+(5, 'Slot', 4.99, 100, 'img/kep_slot.jpg', 'img/kep_slot2.jpg', 'img/kep_slot3.jpg', 'img/kep_slot4.jpg'),
+(6, 'Blackjack asztal', 29.99, 25, 'img/kep_blackjack.jpg', 'img/kep_blackjack2.jpg', 'img/kep_blackjack3.jpg', 'img/kep_blackjack4.jpg'),
+(7, 'Craps Dice Table', 199.99, 5, 'img/kep_craps.jpg', 'img/kep_craps2.jpg', 'img/kep_craps3.jpg', 'img/kep_craps4.jpg'),
+(8, 'Dealer Button', 2.99, 50, 'img/kep_button.jpg', 'img/kep_button2.jpg', 'img/kep_button3.jpg', 'img/kep_button4.jpg'),
+(9, 'Card Shuffler Machine', 39.99, 20, 'img/kep_shuffler.jpg', 'img/kep_shuffler2.jpg', 'img/kep_shuffler3.jpg', 'img/kep_shuffler4.jpg'),
+(10, 'Casino Chips Case', 99.99, 10, 'img/kep_chips.jpg', 'img/kep_chips2.jpg', 'img/kep_chips3.jpg', 'img/kep_chips4.jpg');
 
 -- --------------------------------------------------------
 
@@ -173,17 +193,18 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `
 --
 
 --
--- A tábla indexei `orders`
+-- A tábla indexei `cart`
 --
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`);
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
--- A tábla indexei `order_items`
+-- A tábla indexei `cart_items`
 --
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`order_item_id`),
-  ADD KEY `order_id` (`order_id`),
+ALTER TABLE `cart_items`
+  ADD PRIMARY KEY (`item_id`),
+  ADD KEY `cart_id` (`cart_id`),
   ADD KEY `product_id` (`product_id`);
 
 --
@@ -203,16 +224,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT a táblához `orders`
+-- AUTO_INCREMENT a táblához `cart`
 --
-ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `cart`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT a táblához `order_items`
+-- AUTO_INCREMENT a táblához `cart_items`
 --
-ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `cart_items`
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `products`
@@ -231,11 +252,17 @@ ALTER TABLE `users`
 --
 
 --
--- Megkötések a táblához `order_items`
+-- Megkötések a táblához `cart`
 --
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Megkötések a táblához `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
+  ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

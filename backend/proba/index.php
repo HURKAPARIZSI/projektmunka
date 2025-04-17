@@ -18,12 +18,12 @@ $products = $_SESSION['products'] ?? [];
 
 
 // Kosárba helyezés
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+/*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $productName = $_POST['products'] ?? '';
 
     $kivalasztott = null;
     foreach ($products as $elem) {
-        if ($elem['name'] === $productName) { // Helyes összehasonlítás
+        if ($elem['name'] === $productName) { 
             $kivalasztott = $elem;
             break;
         }
@@ -52,10 +52,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             ];
         }
     }
+}*/
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
+    $productName = $_POST['products'] ?? '';
+    $quantity = 1;
+    if(isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
+        $stmt = $conn->prepare("SELECT product_id FROM products WHERE name = ?");
+        $stmt->bind_param("s", $productName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            $product_id = $row['product_id'];
+        } else {
+            echo "A termék nem található.";
+            exit;
+        }
+
+
+        $stmt = $conn->prepare("SELECT cart_id FROM cart WHERE user_id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            $cart_id = $row['cart_id'];
+        } else {
+            // Ha nincs kosár, létrehozunk egyet
+            $stmt = $conn->prepare("INSERT INTO cart (user_id) VALUES (?)");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $cart_id = $stmt->insert_id;
+        }
+
+        $stmt = $conn->prepare("SELECT item_id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ?");
+        $stmt->bind_param("ii", $cart_id, $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            // Már van ilyen termék, frissítjük a mennyiséget
+            $new_quantity = $row['quantity'] + 1;
+            $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE item_id = ?");
+            $stmt->bind_param("ii", $new_quantity, $row['item_id']);
+            $stmt->execute();
+        } else {
+            // Új terméket adunk a kosárhoz
+            $stmt = $conn->prepare("INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $cart_id, $product_id, $quantity);
+            $stmt->execute();
+        }
+
+
+    }else{
+        echo"Nem vagy bejelentkezve";
+    }
+
+    
 }
 
-$cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
+
+
+
+
+$cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
 <!DOCTYPE html>

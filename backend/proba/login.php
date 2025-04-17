@@ -1,6 +1,6 @@
 <?php
-session_start();
-
+require("../includes/db.php"); 
+require("adatbazis.php");
 // Üzenet törlése a megjelenítés után
 $message = '';
 if (!empty($_SESSION['message'])) {
@@ -11,10 +11,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $_SESSION['loggedinimg'] = "img/pipa_icon.png";
     //echo "Üdvözlünk, " . htmlspecialchars($_SESSION['username']) . "! Be vagy jelentkezve.";
     //header("Location: logout.php");
+    $_SESSION['iconLink'] = 'logout.php';
 
 } else {
     $_SESSION['loggedinimg'] = "img/5580993.png";
+    $_SESSION['iconLink'] = 'login.php';
 }
+if(!isset($_SESSION['loggedin'])){
+    $_SESSION['loggedin'] = false;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +43,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         </nav>
     </header>
     <main>
-        <!-- Üzenet megjelenítése -->
+
         <?php if (!empty($message)): ?>
             <p><?= htmlspecialchars($message) ?></p>
         <?php endif; ?>
@@ -68,8 +74,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
 
 <?php
-require("../includes/db.php"); 
-require("adatbazis.php");
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email']; 
