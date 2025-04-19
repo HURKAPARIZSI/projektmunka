@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Ápr 17. 11:27
+-- Létrehozás ideje: 2025. Ápr 19. 13:30
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -99,7 +99,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `created_at`) VALUES
-(1, 7, '2025-04-15 16:51:34');
+(1, 7, '2025-04-15 16:51:34'),
+(2, 16, '2025-04-19 12:12:02');
 
 -- --------------------------------------------------------
 
@@ -120,12 +121,47 @@ CREATE TABLE `cart_items` (
 --
 
 INSERT INTO `cart_items` (`item_id`, `cart_id`, `product_id`, `quantity`, `added_at`) VALUES
-(1, 1, 1, 13, '2025-04-15 16:57:46'),
-(2, 1, 2, 3, '2025-04-17 09:49:12'),
-(3, 1, 3, 3, '2025-04-17 09:49:17'),
-(4, 1, 8, 1, '2025-04-17 09:49:42'),
-(5, 1, 9, 1, '2025-04-17 09:49:44'),
-(6, 1, 10, 1, '2025-04-17 09:49:45');
+(32, 1, 3, 1, '2025-04-18 12:50:12');
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `created_at`) VALUES
+(1, 16, '2025-04-19 12:15:51');
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `order_item_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `order_items`
+--
+
+INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(1, 1, 2, 1, 149.99);
 
 -- --------------------------------------------------------
 
@@ -172,21 +208,24 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) DEFAULT 0
+  `is_admin` tinyint(1) DEFAULT 0,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `is_admin`) VALUES
-(1, 'johndoe', 'johndoe@example.com', 'password123', '2024-11-11 10:27:10', 0),
-(2, 'janedoe', 'janedoe@example.com', 'password456', '2024-11-11 10:27:10', 0),
-(7, 'admin', 'admin@gmail.com', '$2y$10$cDJE9St1wWkPvC70FdlfGOT.zN4z9NG8Mc1W89YHaJcRO2J5IdzSW', '2025-01-13 11:17:13', 0),
-(8, 'asdasd', 'asdasdasd@gmail.com', '$2y$10$pBLN0F2LzhAk3BwlIi.RVOd6ZesPeLdA6TVqI025pjH.4vLrA66sO', '2025-01-16 10:12:50', 0),
-(12, 'username', 'username@gmail.com', '$2y$10$ZlTSECRBCQKMTYF/Rsx9uuATx7r6T6c9UmSrfvOkgKHdN80N3rSoW', '2025-01-23 11:16:29', 0),
-(14, 'kecske', 'kecske@gmail.com', '$2y$10$ajVPHj7K8mMgOxEAyeyWfu9tbpdFg4h2Y85CN2wHPIBw2yS02aCyy', '2025-01-23 13:41:26', 0),
-(15, 'kakiskuki', 'kakismacska@gmail.com', '$2y$10$muOXi/EFaaLDRSHWIGiClulq4AHE25C5HLzJj8sqzB/uqEerQxvDi', '2025-01-24 11:05:40', 0);
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `is_admin`, `phone`, `address`) VALUES
+(1, 'johndoe', 'johndoe@example.com', 'password123', '2024-11-11 10:27:10', 0, NULL, NULL),
+(2, 'janedoe', 'janedoe@example.com', 'password456', '2024-11-11 10:27:10', 0, NULL, NULL),
+(7, 'admin', 'admin@gmail.com', '$2y$10$cDJE9St1wWkPvC70FdlfGOT.zN4z9NG8Mc1W89YHaJcRO2J5IdzSW', '2025-01-13 11:17:13', 0, NULL, NULL),
+(8, 'asdasd', 'asdasdasd@gmail.com', '$2y$10$pBLN0F2LzhAk3BwlIi.RVOd6ZesPeLdA6TVqI025pjH.4vLrA66sO', '2025-01-16 10:12:50', 0, NULL, NULL),
+(12, 'username', 'username@gmail.com', '$2y$10$ZlTSECRBCQKMTYF/Rsx9uuATx7r6T6c9UmSrfvOkgKHdN80N3rSoW', '2025-01-23 11:16:29', 0, NULL, NULL),
+(14, 'kecske', 'kecske@gmail.com', '$2y$10$ajVPHj7K8mMgOxEAyeyWfu9tbpdFg4h2Y85CN2wHPIBw2yS02aCyy', '2025-01-23 13:41:26', 0, NULL, NULL),
+(15, 'kakiskuki', 'kakismacska@gmail.com', '$2y$10$muOXi/EFaaLDRSHWIGiClulq4AHE25C5HLzJj8sqzB/uqEerQxvDi', '2025-01-24 11:05:40', 0, NULL, NULL),
+(16, 'KOKO', 'nudl@gmail.hu', '$2y$10$NwkcteWBI61yrRQCUr9hWe0opqdS1vfF/oph2MRk0xwJuMn2lX4li', '2025-04-19 12:09:49', 0, 'Dómbóvár első út 1', '0670303030');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -208,6 +247,21 @@ ALTER TABLE `cart_items`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- A tábla indexei `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- A tábla indexei `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`order_item_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- A tábla indexei `products`
 --
 ALTER TABLE `products`
@@ -217,7 +271,8 @@ ALTER TABLE `products`
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- A kiírt táblák AUTO_INCREMENT értéke
@@ -227,13 +282,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT a táblához `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT a táblához `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `products`
@@ -245,7 +312,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -263,6 +330,19 @@ ALTER TABLE `cart`
 ALTER TABLE `cart_items`
   ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
   ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+
+--
+-- Megkötések a táblához `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Megkötések a táblához `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

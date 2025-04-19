@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
             $stmt->bind_param("iii", $cart_id, $product_id, $quantity);
             $stmt->execute();
         }
-
+        
 
     }else{
         header("Location: login.php?msg=not_logged_in");

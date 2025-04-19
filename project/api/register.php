@@ -35,30 +35,37 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         </nav>
     </header>
     <main>
-        <h1>Regisztráció</h1>
-        <?php if (!empty($message)): ?>
-            <p><?= htmlspecialchars($message) ?></p>
-        <?php endif; ?>
-        <form action="register.php" method="POST">
-            <input type="hidden" name="action" value="register">
-            <label for="username">Username:</label>
-            <input type="username" id="username" name="username" required>
-            
+    <h1>Regisztráció</h1>
+    <?php if (!empty($message)): ?>
+        <p><?= htmlspecialchars($message) ?></p>
+    <?php endif; ?>
+    <form action="register.php" method="POST">
+        <input type="hidden" name="action" value="register">
 
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required>
-            
-            <label for="password">Jelszó:</label>
-            <input type="password" id="password" name="password" required>
+        <label for="username">Felhasználónév:</label>
+        <input type="text" id="username" name="username" required>
 
-            <label for="password2">Jelszó újra:</label>
-            <input type="password" id="password2" name="password2" required>
-            
-            <button type="submit">Regisztráció</button>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-            <p>Van már fiókod? <a href="login.php">Bejelentkezés</a></p>
-        </form>
-    </main>
+        <label for="phone">Telefonszám:</label>
+        <input type="text" id="phone" name="phone" required>
+
+        <label for="address">Cím:</label>
+        <input type="text" id="address" name="address" required>
+
+        <label for="password">Jelszó:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="password2">Jelszó újra:</label>
+        <input type="password" id="password2" name="password2" required>
+
+        <button type="submit">Regisztráció</button>
+
+        <p>Van már fiókod? <a href="login.php">Bejelentkezés</a></p>
+    </form>
+</main>
+
 </body>
 </html>
 
@@ -71,9 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['password2']);
+    $address = trim($_POST['address']);
+    $phone = trim($_POST['phone']);
 
     // Alapvető validációk
-    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($address) || empty($phone)) {
         $_SESSION['message'] = "Üres mezők!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['message'] = "Rossz email cím!";
@@ -85,14 +94,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ss", $email, $username);
         $stmt->execute();
         $stmt->store_result();
-        echo"asdasd";
         if ($stmt->num_rows > 0) {
             $_SESSION['message'] = "Az e-mail vagy a felhasználónév már regisztrálva van!!";
         } else {
             // Jelszó titkosítása és adatok hozzáadása az adatbázishoz
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, 0)");
-            $stmt->bind_param("sss", $username, $email, $password_hash);
+            $stmt = $conn->prepare("INSERT INTO users (username, email, password, is_admin,phone,address) VALUES (?, ?, ?, 0,?,?)");
+            $stmt->bind_param("sssss", $username, $email, $password_hash, $address, $phone);
             echo "Sikeres kapcsolódás.";
             if ($stmt->execute()) {
                 $_SESSION['message'] = "Regisztrálva!";
