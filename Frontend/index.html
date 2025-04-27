@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kezdőlap</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <h1>Webshop.kft</h1>    
+        <nav>
+            <a class="item-1" href="index.html">Kezdőlap</a>
+            <a class="item-2" href="contact.html">Kapcsolatok</a>
+            <a class="icon item-3" href="cart.html"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a> 
+            <a class="icon item-4" href="login.html"><img src="img/5580993.png" alt="Bejelentkezés" title="Bejelentkezés"></a>       
+        </nav>
+    </header>
+    <main>
+        <section class="products">
+            <div class="product">
+                <img id="image-blackjack" src="img/kep_blackjack.jpg" alt="Blackjack">
+                <p>Blackjack asztal</p>
+                <label for="tipus-blackjack">Típus:</label>
+                <select id="tipus-blackjack" onchange="updateImage('image-blackjack', this.value, 'blackjack')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
+                <button onclick="addToCart('Blackjack asztal', 120000)">Kosárba</button>
+            </div>
+            <div class="product">
+                <img id="image-roulett" src="img/kep_roulett.jpg" alt="Roulett">
+                <p>Roulett asztal</p>
+                <label for="tipus-roulett">Típus:</label>
+                <select id="tipus-roulett" onchange="updateImage('image-roulett', this.value, 'roulett')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
+                <button onclick="addToCart('Roulett asztal', 99500)">Kosárba</button>
+            </div>
+            <div class="product">
+                <img id="image-slot" src="img/kep_slot.jpg" alt="Slot">
+                <p>Slot</p>
+                <label for="tipus-slot">Típus:</label>
+                <select id="tipus-slot" onchange="updateImage('image-slot', this.value, 'slot')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
+                <button onclick="addToCart('Slot gép', 135000)">Kosárba</button>
+            </div>
+            <div class="product">
+                <img id="image-kartya" src="img/kep_kartya.jpg" alt="Kártyák">
+                <p>Kártyák</p>
+                <label for="tipus-kartya">Típus:</label>
+                <select id="tipus-kartya" onchange="updateImage('image-kartya', this.value, 'kartya')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
+                <button onclick="addToCart('Kártyák', 5000)">Kosárba</button>
+            </div>
+            <div class="product">
+                <img id="image-poker" src="img/kep_poker.jpg" alt="Pokerasztal">
+                <p>Pokerasztal</p>
+                <label for="tipus-poker">Típus:</label>
+                <select id="tipus-poker" onchange="updateImage('image-poker', this.value, 'poker')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
+                <button onclick="addToCart('Pókerasztal', 179000)">Kosárba</button>
+            </div>
+            <div class="product">
+                <img id="image-szerencsekerek" src="img/kep_szerencsekerek.jpg" alt="Szerencsekerék">
+                <p>Szerencsekerék</p>
+                <label for="tipus-szerencsekerek">Típus:</label>
+                <select id="tipus-szerencsekerek" onchange="updateImage('image-szerencsekerek', this.value, 'szerencsekerek')">
+                    <option value="ver1">Verzió 1</option>
+                    <option value="ver2">Verzió 2</option>
+                    <option value="ver3">Verzió 3</option>
+                </select>
+                <button onclick="addToCart('Szerencsekerék', 59000)">Kosárba</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

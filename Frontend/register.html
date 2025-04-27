@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Webshop.kft</h1>
+        <nav>
+            <a href="index.html">Kezdőlap</a>
+            <a href="contact.html">Kapcsolatok</a>
+            <a class="icon" href="cart.html"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a> 
+            <a class="icon" href="login.html"><img src="img/5580993.png" alt="Bejelentkezés" title="Bejelentkezés"></a>    
+        </nav>
+    </header>
+    <main>
+        <h1>Regisztráció</h1>
+        <form action="../backend/api/register.php" method="POST">
+            <input type="hidden" name="action" value="register">
+            <label for="username">Username:</label>
+            <input type="username" id="username" name="username" required>
+            
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Jelszó:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="password2">Jelszó újra:</label>
+            <input type="password" id="password2" name="password2" required>
+            
+            <button type="submit">Regisztráció</button>
+
+            <p>Van már fiókod? <a href="login.html">Bejelentkezés</a></p>
+        </form>
+    </main>
+</body>
+</html>
