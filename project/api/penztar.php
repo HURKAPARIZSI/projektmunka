@@ -94,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rendeles'])){
     <header>
         <h1>RoulettJunior25.kft</h1>    
         <nav>
-            <a class="item-1" href="index.html">Kezdőlap</a>
-            <a class="item-2" href="contact.html">Kapcsolatok</a>   
+            <a class="item-1" href="index.php">Kezdőlap</a>
+            <a class="item-2" href="contact.php">Kapcsolatok</a>   
         </nav>
     </header>
     <main>

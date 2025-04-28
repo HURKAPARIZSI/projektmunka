@@ -30,6 +30,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         <a class="item-1" href="fooldal.php">Főoldal</a>
             <a class="item-2" href="index.php">Termékek</a>
             <a class="item-3" href="contact.php">Kapcsolatok</a>
+            <a class="item-4" href="huzas.php">Húzz egy lapot!!!</a>
             <a class="icon" href="login.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a> 
             <a class="icon" href="login.php"><img src="<?= htmlspecialchars($_SESSION['loggedinimg']) ?>" alt="Bejelentkezés" title="Bejelentkezés"></a> 
         </nav>

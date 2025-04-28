@@ -38,6 +38,7 @@ if(!isset($_SESSION['loggedin'])){
         <a class="item-1" href="fooldal.php">Főoldal</a>
             <a class="item-2" href="index.php">Termékek</a>
             <a class="item-3" href="contact.php">Kapcsolatok</a>
+            <a class="item-4" href="huzas.php">Húzz egy lapot!!!</a>
             <a class="icon" href="cart.php"><img src="img/th.jpg" alt="Kosár" title="Kosár"></a>
             <a class="icon" href="<?php echo $_SESSION['iconLink']?>"><img src="<?php echo $_SESSION['loggedinimg']?>" alt="Bejelentkezés/Kijelentkezés" title="Bejelentkezés"></a> 
         </nav>
