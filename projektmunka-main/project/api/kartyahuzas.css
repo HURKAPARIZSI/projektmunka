@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(img/hatter.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #333;
+}
+
+.icon img {
+    width: 30px;
+}
+
+.iconok {
+    text-align: right;
+    float: right;
+}
+
+header {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    white-space: nowrap; 
+}
+
+/* NAVIGÁCIÓ STÍLUSOK */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav a {
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #ffc107;
+    color: #000;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 8px;
+}
+
+button {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e0a800;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+  }
