@@ -39,10 +39,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <label for="message">Üzenet:</label>
             <textarea id="message" name="message"></textarea>
             
-            <button type="submit">Küldés</button>
-        </form>
-        <address>
-            <p>Email: info@webshop.hu</p>
+            <button> info@webshop.hu </button>
             <p>Telefon: +36 30 123 4567</p>
         </address>
     </main>

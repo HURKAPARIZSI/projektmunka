@@ -54,7 +54,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         <img src="img/asd3.jpg" alt="Kép 3">
         <a class="text-overlay" href="https://vegas.hu" target="_blank">Vegas.hu</a>
     </div>
-
+      
     <!-- Előző és következő gombok -->
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -75,7 +75,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             if (n >= slides.length) { slideIndex = 0; }
             if (n < 0) { slideIndex = slides.length - 1; }
 
-            slides.forEach(slide => slide.style.display = "none");
+            slides.forEach(slide => slide.style.display = "no   ne");
             slides[slideIndex].style.display = "block";
         }
 
