@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rendeles'])){
 
         <p>Fizetendő: FEJLESZTÉS ALATT</p>
 
-        <button type="submit" name="rendeles">Rendelés leadása</button>
+        <button type="submit" name="rendeles" >Rendelés leadása</button>
     </form>
 </main>
 

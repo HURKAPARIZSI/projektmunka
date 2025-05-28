@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Ápr 19. 13:30
+-- Létrehozás ideje: 2025. Máj 28. 14:46
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -116,13 +116,6 @@ CREATE TABLE `cart_items` (
   `added_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- A tábla adatainak kiíratása `cart_items`
---
-
-INSERT INTO `cart_items` (`item_id`, `cart_id`, `product_id`, `quantity`, `added_at`) VALUES
-(32, 1, 3, 1, '2025-04-18 12:50:12');
-
 -- --------------------------------------------------------
 
 --
@@ -140,7 +133,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `created_at`) VALUES
-(1, 16, '2025-04-19 12:15:51');
+(1, 16, '2025-04-19 12:15:51'),
+(2, 7, '2025-04-22 18:29:25'),
+(3, 7, '2025-05-28 14:44:10');
 
 -- --------------------------------------------------------
 
@@ -161,7 +156,12 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
-(1, 1, 2, 1, 149.99);
+(1, 1, 2, 1, 149.99),
+(2, 2, 3, 5, 9.99),
+(3, 2, 1, 1, 49.99),
+(4, 2, 4, 1, 89.99),
+(5, 2, 5, 2, 4.99),
+(6, 3, 3, 1, 3240.00);
 
 -- --------------------------------------------------------
 
@@ -185,16 +185,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `price`, `stock`, `image_default`, `image_ver1`, `image_ver2`, `image_ver3`) VALUES
-(1, 'Roulett asztal', 49.99, 20, 'img/kep_roulett.jpg', 'img/kep_roulett2.jpg', 'img/kep_roulett3.jpg', 'img/kep_roulett4.jpg'),
-(2, 'Kártyák', 149.99, 10, 'img/kep_kartya.jpg', 'img/kep_kartya2.jpg', 'img/kep_kartya3.jpg', 'img/kep_kartya4.jpg'),
-(3, 'Szerencsekerék', 9.99, 50, 'img/kep_szerencsekerek.jpg', 'img/kep_szerencsekerek2.jpg', 'img/kep_szerencskerek3.jpg', 'img/kep_szerencskerek4.jpg'),
-(4, 'Poker asztal', 89.99, 15, 'img/kep_poker.jpg', 'img/kep_poker2.jpg', 'img/kep_poker3.jpg', 'img/kep_poker4.jpg'),
-(5, 'Slot', 4.99, 100, 'img/kep_slot.jpg', 'img/kep_slot2.jpg', 'img/kep_slot3.jpg', 'img/kep_slot4.jpg'),
-(6, 'Blackjack asztal', 29.99, 25, 'img/kep_blackjack.jpg', 'img/kep_blackjack2.jpg', 'img/kep_blackjack3.jpg', 'img/kep_blackjack4.jpg'),
-(7, 'Craps Dice Table', 199.99, 5, 'img/kep_craps.jpg', 'img/kep_craps2.jpg', 'img/kep_craps3.jpg', 'img/kep_craps4.jpg'),
-(8, 'Dealer Button', 2.99, 50, 'img/kep_button.jpg', 'img/kep_button2.jpg', 'img/kep_button3.jpg', 'img/kep_button4.jpg'),
-(9, 'Card Shuffler Machine', 39.99, 20, 'img/kep_shuffler.jpg', 'img/kep_shuffler2.jpg', 'img/kep_shuffler3.jpg', 'img/kep_shuffler4.jpg'),
-(10, 'Casino Chips Case', 99.99, 10, 'img/kep_chips.jpg', 'img/kep_chips2.jpg', 'img/kep_chips3.jpg', 'img/kep_chips4.jpg');
+(1, 'Roulett asztal', 61000.00, 20, 'img/kep_roulett.jpg', 'img/kep_roulett2.jpg', 'img/kep_roulett3.jpg', 'img/kep_roulett4.jpg'),
+(2, 'Kártyák', 4600.00, 10, 'img/kep_kartya.jpg', 'img/kep_kartya2.jpg', 'img/kep_kartya3.jpg', 'img/kep_kartya4.jpg'),
+(3, 'Szerencsekerék', 3240.00, 50, 'img/kep_szerencsekerek.jpg', 'img/kep_szerencsekerek2.jpg', 'img/kep_szerencskerek3.jpg', 'img/kep_szerencskerek4.jpg'),
+(4, 'Poker asztal', 612000.00, 15, 'img/kep_poker.jpg', 'img/kep_poker2.jpg', 'img/kep_poker3.jpg', 'img/kep_poker4.jpg'),
+(5, 'Slot', 580000.00, 100, 'img/kep_slot.jpg', 'img/kep_slot2.jpg', 'img/kep_slot3.jpg', 'img/kep_slot4.jpg'),
+(6, 'Blackjack asztal', 612000.00, 25, 'img/kep_blackjack.jpg', 'img/kep_blackjack2.jpg', 'img/kep_blackjack3.jpg', 'img/kep_blackjack4.jpg'),
+(7, 'Craps Dice Table', 612000.00, 5, 'img/kep_craps.jpg', 'img/kep_craps2.jpg', 'img/kep_craps3.jpg', 'img/kep_craps4.jpg'),
+(8, 'Dealer Button', 1080.00, 50, 'img/kep_button.jpg', 'img/kep_button2.jpg', 'img/kep_button3.jpg', 'img/kep_button4.jpg'),
+(9, 'Card Shuffler Machine', 36000.00, 20, 'img/kep_shuffler.jpg', 'img/kep_shuffler2.jpg', 'img/kep_shuffler3.jpg', 'img/kep_shuffler4.jpg'),
+(10, 'Casino Chips Case', 25000.00, 10, 'img/kep_chips.jpg', 'img/kep_chips2.jpg', 'img/kep_chips3.jpg', 'img/kep_chips4.jpg');
 
 -- --------------------------------------------------------
 
@@ -288,19 +288,19 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT a táblához `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT a táblához `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `products`

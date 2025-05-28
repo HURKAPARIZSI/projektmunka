@@ -112,7 +112,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             <?php foreach ($products as $product): ?>
                 <div class="product">
                     <p><?php echo htmlspecialchars($product['name']); ?></p>
-                    <p>Ár: <?php echo htmlspecialchars($product['price']); ?> $</p>
+                    <p>Ár: <?php echo htmlspecialchars($product['price']); ?> Ft</p>
                     <form method="POST">
                         <img src="<?php echo htmlspecialchars($product['image_default']) ?>" width="150px">
                         <input type="hidden" name="products" value="<?= htmlspecialchars($product['name']) ?>">
